@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>LAKAKAMAND SMP - Statut du Serveur</title>
+  <style>
+    @font-face {
+      font-family: 'Minecraftia';
+      src: url('Minecraftia.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Minecraftia', sans-serif;
+      background: #3c6e28 url('grass_block.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.75);
+      border: 5px solid #111;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 15px black;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      text-shadow: 2px 2px 2px black;
+    }
+
+    .status {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .online {
+      color: #00ff00;
+    }
+
+    .offline {
+      color: #ff5555;
+    }
+
+    .buttons {
+      margin-top: 15px;
+    }
+
+    .buttons a, .buttons button {
+      font-family: 'Minecraftia', sans-serif;
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .launch {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .copy {
+      background-color: #555;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🎮 LAKAKAMAND SMP Saison 3</h1>
+    <p class="status" id="status">⏳ Chargement du statut...</p>
+
+    <div class="buttons">
+      <a href="minecraft://91.197.5.218:2022" class="launch">🚀 Lancer Minecraft</a>
+      <button class="copy" onclick="navigator.clipboard.writeText('91.197.5.218:2022')">📋 Copier l'adresse IP</button>
+    </div>
+  </div>
+
+  <script>
+    fetch("https://api.mcsrvstat.us/2/91.197.5.218:2022")
+      .then(response => response.json())
+      .then(data => {
+        const statusEl = document.getElementById("status");
+        if (data.online) {
+          statusEl.innerHTML = `<span class="online">✅ Serveur ouvert — ${data.players.online} joueur(s)</span>`;
+        } else {
+          statusEl.innerHTML = `<span class="offline">❌ Serveur fermé</span>`;
+        }
+      })
+      .catch(() => {
+        document.getElementById("status").innerText = "❌ Impossible de vérifier le statut.";
+      });
+  </script>
+</body>
+</html>
