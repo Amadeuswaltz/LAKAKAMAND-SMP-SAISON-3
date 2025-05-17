@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Statut Serveur Minecraft</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .online {
+      color: green;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .offline {
+      color: red;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <h2>Statut du serveur Minecraft</h2>
+  <p id="status">⏳ Vérification en cours...</p>
+
+  <script>
+    fetch("https://api.mcsrvstat.us/2/91.197.5.218:2022")
+      .then(response => response.json())
+      .then(data => {
+        const status = document.getElementById("status");
+        if (data.online) {
+          status.innerHTML = `<span class="online">✅ Serveur ouvert - ${data.players.online} joueur(s)</span>`;
+        } else {
+          status.innerHTML = `<span class="offline">❌ Serveur fermé</span>`;
+        }
+      })
+      .catch(() => {
+        document.getElementById("status").innerText = "❌ Erreur lors de la récupération du statut.";
+      });
+  </script>
+</body>
+</html>
