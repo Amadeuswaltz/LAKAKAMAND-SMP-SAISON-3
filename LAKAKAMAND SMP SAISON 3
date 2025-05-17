@@ -107,6 +107,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+body {
+  background: #3c6e28 url('grass_block.png') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  font-family: 'Minecraftia', sans-serif;
+  text-align: center;
+}
+
     }
 
     .status-box {
